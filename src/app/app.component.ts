@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { Pokemon } from './pokemon.interface';
 
 @Component({
@@ -7,27 +7,25 @@ import { Pokemon } from './pokemon.interface';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'demo';
-  pokemons: Array<Pokemon> = [<Pokemon>{
-    name: "pikachu",
-    type: "lightning",
-    height: 30,
-    weight: 23
-  },
-  <Pokemon>{
-    name: "charizard",
-    type: "fire",
-    height: 230,
-    weight: 120
-  }];
+  title = 'Evidenta Pokemonilor';
 
-  public onEditClicked(index: number) {
-    alert(index)
+  @Output() pokemonToBeEdited = new EventEmitter<Pokemon>();
+
+  pokemons:Array<Pokemon> = [
+    <Pokemon>{name: 'Pikachu', type: 'Electric', weight: 200, height: 100},
+    <Pokemon>{name: 'Ditto', type: 'Normal', weight: 50, height: 50},
+    <Pokemon>{name: 'Tentacool', type: 'Water', weight: 500, height: 250},
+  ];
+
+  pokemonsToEdit = <Pokemon>{};
+
+  updateEditPokemon(index){
+    this.pokemonsToEdit = this.pokemons[index];
+    // alert(this.pokemonsToEdit.type);
+    this.pokemonToBeEdited.emit(this.pokemonsToEdit);
+
   }
-
-  public onAddClicked(pokemon: Pokemon) {
-    this.pokemons.push(pokemon)
+  pushPokemon(pokemon) {
+    this.pokemons.push(pokemon);
   }
-
-
 }

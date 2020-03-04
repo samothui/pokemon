@@ -1,5 +1,11 @@
-<h2>Evidenta Pokemonilor in Romania</h2>
-<app-pokemon-list [pokemons]="pokemons" (onEdit)="onEditClicked($event)">
-</app-pokemon-list>
-<app-pokemon-form (onAdd)="onAddClicked($event)" >
-</app-pokemon-form>
+<div class="container-fluid">
+  <h1 class="text-center"> Evidenta Pokemonilor v2</h1><hr>
+  <div class="row">
+    <div class="col-sm-7">
+      <app-pokemon-list [pokemons]="pokemons" (editPokemonEvent)="updateEditPokemon($event)"></app-pokemon-list>
+    </div>
+    <div class="col-sm-5">
+      <app-pokemon-form (addedPokemon)="pushPokemon($event)"></app-pokemon-form>
+    </div>
+</div>
+</div>

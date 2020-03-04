@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Pokemon } from '../pokemon.interface';
 
 @Component({
@@ -6,19 +6,15 @@ import { Pokemon } from '../pokemon.interface';
   templateUrl: './pokemon-list.component.html',
   styleUrls: ['./pokemon-list.component.css']
 })
-export class PokemonListComponent implements OnInit {
+export class PokemonListComponent {
 
-  @Input() pokemons: Array<Pokemon> = new Array<Pokemon>();
+  @Input() pokemons:Pokemon;
 
-  @Output() onEdit: EventEmitter<number> = new EventEmitter<number>();
-  constructor() { }
+  @Output() editPokemonEvent = new EventEmitter<Pokemon>();
 
-  ngOnInit() {
+  editPokemonEmit(index){
+    this.editPokemonEvent.emit(index);
   }
 
-
-  public onEditClick(index: number) {
-    this.onEdit.emit(index);
-  }
 
 }

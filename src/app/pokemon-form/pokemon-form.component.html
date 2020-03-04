@@ -1,7 +1,15 @@
-<div class="pokemon-form">
-    <input placeholder="Name" [(ngModel)]="pokemon.name" type="text" />
-    <input placeholder="Type" type="text"  [(ngModel)]="pokemon.type" />
-    <input placeholder="Weight" type="number"  [(ngModel)]="pokemon.weight" />
-    <input placeholder="Height" type="number"  [(ngModel)]="pokemon.height" />
-    <button (click)="onAddClick()">Add</button>
+<h3 (pokemonToBeEdited)="updateEditPokemon($event)">Add a new Pokemon here</h3>
+<div>
+  <label for="exampleFormControlInput1">Pokemon Name</label>
+  <input class="form-control" placeholder="e.g. Pikachu" [(ngModel)]="pokemons.name"><br>
+
+  <label for="exampleFormControlInput1">Pokemon Type</label>
+  <input class="form-control" placeholder="e.g. Electric" [(ngModel)]="pokemons.type"><br>
+
+  <label for="exampleFormControlInput1">Pokemon Weight (in kg)</label>
+  <input class="form-control" placeholder="e.g. 0.2"[(ngModel)]="pokemons.weight"><br>
+
+  <label for="exampleFormControlInput1">Pokemon Height (in cm)</label>
+  <input class="form-control" placeholder="e.g. 20"[(ngModel)]="pokemons.height"><br>
+  <button id="add" class="btn btn-outline-success" (click)="emitPokemonData()">Add</button>
 </div>
