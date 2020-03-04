@@ -1,0 +1,7 @@
+<p>pokemon-list works!</p>
+<div class="pokemon-list">
+    <div class="pokemon-item" *ngFor="let pokemon of pokemons; let i=index">
+        <span>Name:{{pokemon.name}} Type:{{pokemon.type}} Weigth: {{pokemon.weight}} HeightL {{pokemon.height}}</span>
+        <button (click)="onEditClick(i)">Edit</button>
+    </div>
+</div>

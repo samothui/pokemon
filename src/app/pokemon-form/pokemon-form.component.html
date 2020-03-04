@@ -1,0 +1,7 @@
+<div class="pokemon-form">
+    <input placeholder="Name" [(ngModel)]="pokemon.name" type="text" />
+    <input placeholder="Type" type="text"  [(ngModel)]="pokemon.type" />
+    <input placeholder="Weight" type="number"  [(ngModel)]="pokemon.weight" />
+    <input placeholder="Height" type="number"  [(ngModel)]="pokemon.height" />
+    <button (click)="onAddClick()">Add</button>
+</div>
