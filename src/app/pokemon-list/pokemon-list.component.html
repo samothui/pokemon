@@ -1,7 +1,27 @@
-<p>pokemon-list works!</p>
-<div class="pokemon-list">
-    <div class="pokemon-item" *ngFor="let pokemon of pokemons; let i=index">
-        <span>Name:{{pokemon.name}} Type:{{pokemon.type}} Weigth: {{pokemon.weight}} HeightL {{pokemon.height}}</span>
-        <button (click)="onEditClick(i)">Edit</button>
-    </div>
-</div>
+<h3>Pokemon Population</h3>
+<br>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Type</th>
+      <th scope="col">Weight (kg)</th>
+      <th scope="col">Height (cm)</th>
+      <th></th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="list-group-item-action" *ngFor="let pokemon of pokemons; let i = index">
+      <th scope="row">{{i}}</th>
+      <td>{{pokemon.name}}</td>
+      <td>{{pokemon.type}}</td>
+      <td>{{pokemon.height}}</td>
+      <td>{{pokemon.weight}}</td>
+      <button class="btn btn-primary btn-sm" (click)="editPokemonEmit(i)">Edit</button>
+
+    </tr>
+  </tbody>
+</table>
