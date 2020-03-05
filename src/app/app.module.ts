@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PokemonListComponent } from './pokemon-list/pokemon-list.component';
 import { PokemonFormComponent } from './pokemon-form/pokemon-form.component';
+import { PokemonsStorageService } from './pokemons.service';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { PokemonFormComponent } from './pokemon-form/pokemon-form.component';
     FormsModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [PokemonsStorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

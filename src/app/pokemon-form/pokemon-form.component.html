@@ -1,4 +1,4 @@
-<h3 (pokemonToBeEdited)="updateEditPokemon($event)">Add a new Pokemon here</h3>
+<h3>Add a new Pokemon here</h3>
 <div>
   <label for="exampleFormControlInput1">Pokemon Name</label>
   <input class="form-control" placeholder="e.g. Pikachu" [(ngModel)]="pokemons.name"><br>
@@ -11,5 +11,5 @@
 
   <label for="exampleFormControlInput1">Pokemon Height (in cm)</label>
   <input class="form-control" placeholder="e.g. 20"[(ngModel)]="pokemons.height"><br>
-  <button id="add" class="btn btn-outline-success" (click)="emitPokemonData()">Add</button>
+  <button id="add" class="btn btn-outline-success" (click)="addPokemonToList()">Add</button>
 </div>

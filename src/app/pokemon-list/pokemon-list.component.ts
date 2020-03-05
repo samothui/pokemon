@@ -1,5 +1,6 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component} from '@angular/core';
 import { Pokemon } from '../pokemon.interface';
+import { PokemonsStorageService } from '../pokemons.service';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -8,13 +9,13 @@ import { Pokemon } from '../pokemon.interface';
 })
 export class PokemonListComponent {
 
-  @Input() pokemons:Pokemon;
+  constructor(private pokeStorage: PokemonsStorageService) {  }
 
-  @Output() editPokemonEvent = new EventEmitter<Pokemon>();
+  pokemons:Array<Pokemon> = this.pokeStorage.pokemons;
 
-  editPokemonEmit(index){
-    this.editPokemonEvent.emit(index);
+  editPokemon(pokemon){
+    this.pokeStorage.addToEditList(pokemon);
+    // alert(this.pokeStorage.pokemonsToBeEdited.name);
   }
-
 
 }
