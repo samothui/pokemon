@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Pokemon } from './pokemon.interface';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +15,23 @@ export class PokemonsStorageService {
 
   pokemonsToBeEdited: Pokemon;
 
+  editPokemonEvent = new Subject<void>();
+
   addToEditList(pokemon) {
     this.pokemonsToBeEdited = pokemon;
-    // alert(this.pokemonsToBeEdited.name);
+    this.editPokemonEvent.next();
   }
 
-  addToList(pokemon) {
-    this.pokemons.push(pokemon);
+  addToList(pokemonToBeAdded) {
+    const pos = this.pokemons.findIndex((pokemon)=>{
+      return pokemon.name === pokemonToBeAdded.name;
+    })
+    if (pos !== -1){
+      // alert(pokemonToBeAdded.name + ' is already on the list! Use the edit function instead.');
+      this.pokemons[pos] = pokemonToBeAdded;
+      return;
+    }
+    this.pokemons.push(pokemonToBeAdded);
   }
 
   constructor() { }
