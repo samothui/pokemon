@@ -5,12 +5,15 @@
 <div>
   <form #form="ngForm" (ngSubmit)="onSubmit(form)">
   <label for="exampleFormControlInput1">Pokemon Name</label>
-  <input class="form-control" [disabled]="(btnText==='Edit')" placeholder="e.g. Pikachu" type= "text" name="name" [(ngModel)]="pokemons.name" #nameInp="ngModel" required>
+  <input class="form-control" [disabled]="(btnText==='Edit')" placeholder="e.g. Pikachu" type= "text" pattern="[a-zA-Z]+" ng-pattern-restrict name="name" [(ngModel)]="pokemons.name" #nameInp="ngModel" required>
   <span class="helper-text" *ngIf="nameInp.invalid && nameInp.touched">Please add a Pokemon name!</span><br>
 
+
   <label for="exampleFormControlInput1">Pokemon Type</label>
-  <input class="form-control" placeholder="e.g. Electric" type= "text" name="type" [(ngModel)]="pokemons.type" #typeInp="ngModel" required>
-  <span class="helper-text" *ngIf="typeInp.invalid && typeInp.touched">Please add a Pokemon tpye!</span><br>
+  <input class="form-control" placeholder="e.g. Electric" type= "text" name="type" [(ngModel)]="pokemons.type"
+         #typeInp="ngModel" required>
+  <span class="helper-text" *ngIf="typeInp.invalid && typeInp.touched">Please add a Pokemon type!</span><br>
+
 
   <label for="exampleFormControlInput1">Pokemon Weight (in kg)</label>
   <input class="form-control" placeholder="e.g. 0.2" type= "number" name = "weight" [(ngModel)]="pokemons.weight" #weightInp="ngModel" required >
@@ -33,3 +36,6 @@
         </button>
 </form>
 </div>
+
+<ngb-alert *ngIf="successMessage" type="success" (close)="successMessage = null">{{ successMessage }}</ngb-alert>
+

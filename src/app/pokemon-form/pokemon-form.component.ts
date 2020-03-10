@@ -3,6 +3,9 @@ import { Pokemon } from '../pokemon.interface';
 import { PokemonsStorageService } from '../pokemons.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-pokemon-form',
@@ -24,6 +27,10 @@ export class PokemonFormComponent implements OnInit, OnDestroy {
         this.pokemons.img = this.pokeStorage.pokemonsToBeEdited.img;
         this.btnText = "Edit";
     }
+    this._success.subscribe((message) => this.successMessage = message);
+    this._success.pipe(
+      debounceTime(5000)
+    ).subscribe(() => this.successMessage = null);
     // this.editSubscription = this.pokeStorage.editPokemonEvent.subscribe(
     //   () => {
 
@@ -37,6 +44,14 @@ export class PokemonFormComponent implements OnInit, OnDestroy {
   pokemons = <Pokemon>{};
   editSubscription: Subscription;
   btnText = "Add";
+
+  private _success = new Subject<string>();
+  staticAlertClosed = false;
+  successMessage: string;
+
+  changeSuccessMessage(message) {
+    this._success.next(`Pokemon successfully ${message} !`);
+  }
 
   onSubmit(form){
     const newPokemon = {
@@ -56,6 +71,9 @@ export class PokemonFormComponent implements OnInit, OnDestroy {
       (value: any) => {
         newPokemon.img = value.sprites.front_default;
         this.pokeStorage.addToList(newPokemon);
+        if (this.pokeStorage.editMode){
+          this.changeSuccessMessage('edited');
+        } else this.changeSuccessMessage('added');
         this.pokeStorage.pokemonsToBeEdited = <Pokemon>{};
         this.pokeStorage.editMode= false;
         if (form.value.changeTab) {

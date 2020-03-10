@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Pokemon } from './pokemon.interface';
+import { Pokemon, Pokedex } from './pokemon.interface';
 import { Subject } from 'rxjs';
 import {  HttpClient } from '@angular/common/http';
 import { TitleCasePipe, LowerCasePipe } from '@angular/common';
@@ -19,6 +19,7 @@ export class PokemonsStorageService {
 
   pokemons:Array<Pokemon> = []
   pokemonsToBeEdited: Pokemon;
+  pokemonsPokedex= <Pokedex>{};
   editPokemonEvent = new Subject<void>();
   editMode = false;
 
@@ -37,17 +38,25 @@ export class PokemonsStorageService {
         }
       )
     }
-}
+  }
+
+  callAbility(abilityName){
+    return this.http.get('https://pokeapi.co/api/v2/ability/'+abilityName);
+  }
+
   getImage(pokemonName){
     let lowerName = this.lowercase.transform(pokemonName);
     return this.http.get('https://pokeapi.co/api/v2/pokemon/'+lowerName);}
 
   addToEditList(pokemon) {
     this.pokemonsToBeEdited = pokemon;
-    console.log('service');
     this.editMode = true;
-
     // this.editPokemonEvent.next();
+  }
+
+  addToPokedex(pokemon) {
+    let lowerName = this.lowercase.transform(pokemon.name);
+    return this.http.get('https://pokeapi.co/api/v2/pokemon/'+lowerName);
   }
 
   addToList(pokemonToBeAdded) {

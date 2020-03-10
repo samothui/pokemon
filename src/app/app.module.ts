@@ -11,7 +11,9 @@ import { HttpClientModule} from '@angular/common/http'
 import { TitleCasePipe, LowerCasePipe } from '@angular/common';
 import { PokemonHomeComponent } from './pokemon-home/pokemon-home.component';
 import { ModalComponent } from './modal/modal.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalComponent } from './ngb-modal/ngb-modal.component';
+import { PokedexComponent } from './pokedex/pokedex.component';
 
 
 @NgModule({
@@ -20,7 +22,9 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     PokemonListComponent,
     PokemonFormComponent,
     PokemonHomeComponent,
-    ModalComponent
+    ModalComponent,
+    NgbModalComponent,
+    PokedexComponent
   ],
   imports: [
     BrowserModule,
