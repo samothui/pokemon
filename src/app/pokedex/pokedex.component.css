@@ -1,0 +1,39 @@
+.upper-body{
+  display: grid;
+  grid-template-columns: repeat(3, 30%);
+  grid-template-rows: repeat(3, 30%);
+  grid-gap: 1px 9px;
+  align-items: center;
+  justify-content: center;
+}
+
+.mmodal{
+  background-color: rgb(58, 57, 57);
+  color: white;
+}
+
+.modal-content{
+  border-radius: 0.5em;
+}
+
+.responsive{
+  width: 100%;
+  height: auto;
+}
+.titlecase {
+  text-transform: capitalize;
+}
+
+.middle-title{
+  font-size: 1.15em;
+}
+
+#detProfile{
+  grid-row-start: span 4;
+}
+
+.general-stats{
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  grid-auto-flow: row;
+}
