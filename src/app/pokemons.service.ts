@@ -1,25 +1,53 @@
 import { Injectable } from '@angular/core';
 import { Pokemon } from './pokemon.interface';
 import { Subject } from 'rxjs';
+import {  HttpClient } from '@angular/common/http';
+import { TitleCasePipe, LowerCasePipe } from '@angular/common';
+import { map, tap } from 'rxjs/operators';
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class PokemonsStorageService {
 
-  pokemons:Array<Pokemon> = [
-    <Pokemon>{name: 'Pikachu', type: 'Electric', weight: 200, height: 100},
-    <Pokemon>{name: 'Ditto', type: 'Normal', weight: 50, height: 50},
-    <Pokemon>{name: 'Tentacool', type: 'Water', weight: 500, height: 250},
-  ];
+  constructor (
+    private http: HttpClient,
+    private titlecase: TitleCasePipe,
+    private lowercase: LowerCasePipe){}
 
+  pokemons:Array<Pokemon> = []
   pokemonsToBeEdited: Pokemon;
-
   editPokemonEvent = new Subject<void>();
+  editMode = false;
+
+  addRandomPokemon(numRepeats){
+    for (let i = 0; i<= numRepeats; i++){
+      this.http.get('https://pokeapi.co/api/v2/pokemon/'+Math.floor(Math.random()*(151-1)+1)).subscribe(
+        (Response:any) =>{
+          let newPokemon = {
+            name: this.titlecase.transform(Response.name),
+            type: this.titlecase.transform(Response.types[0].type.name),
+            weight: Response.weight / 10,
+            height: Response.height / 10,
+            img: Response.sprites.front_default
+          }
+          this.addToList(newPokemon);
+        }
+      )
+    }
+}
+  getImage(pokemonName){
+    let lowerName = this.lowercase.transform(pokemonName);
+    return this.http.get('https://pokeapi.co/api/v2/pokemon/'+lowerName);}
 
   addToEditList(pokemon) {
     this.pokemonsToBeEdited = pokemon;
-    this.editPokemonEvent.next();
+    console.log('service');
+    this.editMode = true;
+
+    // this.editPokemonEvent.next();
   }
 
   addToList(pokemonToBeAdded) {
@@ -27,12 +55,15 @@ export class PokemonsStorageService {
       return pokemon.name === pokemonToBeAdded.name;
     })
     if (pos !== -1){
-      // alert(pokemonToBeAdded.name + ' is already on the list! Use the edit function instead.');
       this.pokemons[pos] = pokemonToBeAdded;
       return;
     }
     this.pokemons.push(pokemonToBeAdded);
   }
 
-  constructor() { }
+  clear(){
+    this.pokemons = [];
+  }
+
+
 }

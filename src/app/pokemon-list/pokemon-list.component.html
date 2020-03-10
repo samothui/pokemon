@@ -1,4 +1,7 @@
 <h3>Pokemon Population</h3>
+<button class="btn btn-warning btn-sm" (click)='randomPoke(50)'>Add random</button>
+<button class="btn btn-danger btn-sm" (click)='clear()'>Clear list</button>
+
 <br>
 
 <table class="table">
@@ -9,17 +12,23 @@
       <th scope="col">Type</th>
       <th scope="col">Weight (kg)</th>
       <th scope="col">Height (cm)</th>
+      <th scope="col">Image</th>
       <th></th>
 
     </tr>
   </thead>
   <tbody>
     <tr class="list-group-item-action" *ngFor="let pokemon of pokemons; let i = index">
-      <th scope="row">{{i}}</th>
+      <th scope="row">{{i+1}}</th>
       <td>{{pokemon.name}}</td>
       <td>{{pokemon.type}}</td>
-      <td>{{pokemon.height}}</td>
       <td>{{pokemon.weight}}</td>
+      <td>{{pokemon.height}}</td>
+      <td style="padding: 0"><img
+                                 src="{{pokemon.img}}"
+                                 height="50"
+                                 width="50"
+                                 name="PokemonImage"></td>
       <td><button class="btn btn-primary btn-sm" (click)="editPokemon(pokemon)">Edit</button></td>
 
     </tr>

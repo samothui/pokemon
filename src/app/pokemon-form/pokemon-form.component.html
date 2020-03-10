@@ -20,6 +20,9 @@
   <input class="form-control" placeholder="e.g. 20" type= "number" name = "height" [(ngModel)]="pokemons.height"  #heightInp="ngModel" required >
   <span class="helper-text" *ngIf="heightInp.invalid && heightInp.touched">Please add a Pokemon height!</span><br>
 
+  <input type="checkbox" id="changeTab" name="changeTab" value="changeTab" ngModel>
+  <label for="changeTab"> Let me see the Pokemon</label><br>
+
 
   <button id="add"
           class="btn btn-success"

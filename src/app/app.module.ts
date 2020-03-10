@@ -7,19 +7,29 @@ import { AppComponent } from './app.component';
 import { PokemonListComponent } from './pokemon-list/pokemon-list.component';
 import { PokemonFormComponent } from './pokemon-form/pokemon-form.component';
 import { PokemonsStorageService } from './pokemons.service';
+import { HttpClientModule} from '@angular/common/http'
+import { TitleCasePipe, LowerCasePipe } from '@angular/common';
+import { PokemonHomeComponent } from './pokemon-home/pokemon-home.component';
+import { ModalComponent } from './modal/modal.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     PokemonListComponent,
-    PokemonFormComponent
+    PokemonFormComponent,
+    PokemonHomeComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    NgbModule,
   ],
-  providers: [PokemonsStorageService],
+  providers: [PokemonsStorageService, TitleCasePipe, LowerCasePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
