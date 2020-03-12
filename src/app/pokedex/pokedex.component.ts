@@ -15,9 +15,11 @@ export class PokedexComponent implements OnInit {
 
   ngOnInit(): void {
     this.pokedexPokemon = this.pokeStorage.pokemonsPokedex;
+    console.log(this.pokedexPokemon.type);
   }
 
   pokedexPokemon: Pokedex;
+
 
 
 }

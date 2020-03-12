@@ -10,8 +10,10 @@
   <div class="modal-body">
     <div class="upper-body">
       <img id="detProfile" class="responsive" src="{{pokedexPokemon.img}}" width="200px" height="200px" >
-      <p id="detNo" class="titlecase"><strong>Type:</strong> {{pokedexPokemon.type}}</p>
-      <p id="detNo"><em>#{{pokedexPokemon.order}}</em></p>
+      <p  class="titlecase"><strong>Type:   </strong>
+          <span *ngFor="let type of pokedexPokemon.type" class= "detNo" [ngClass]="type">{{type}}</span>
+      </p>
+      <p><em>#{{pokedexPokemon.order}}</em></p>
       <p>HP: <ngb-progressbar id="stHP" type="primary" [striped]="true" [animated]="true"[value]="pokedexPokemon.stHP">{{pokedexPokemon.stHP}}</ngb-progressbar></p>
       <p>Speed: <ngb-progressbar id="stSpeed" type="secondary"[striped]="true" [animated]="true" [value]="pokedexPokemon.stSpeed">{{pokedexPokemon.stSpeed}}</ngb-progressbar></p>
       <p>Attack:<ngb-progressbar id="stAttack"type="danger" [striped]="true" [animated]="true"[value]="pokedexPokemon.stAtt">{{pokedexPokemon.stAtt}}</ngb-progressbar></p>

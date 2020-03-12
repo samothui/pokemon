@@ -1,5 +1,5 @@
 <h3>Pokemon Population</h3>
-<button class="btn btn-warning btn-sm" (click)='randomPoke(50)'>Add random</button>
+<button class="btn btn-warning btn-sm" (click)='randomPoke(30)'>Add random</button>
 <button class="btn btn-danger btn-sm" (click)='clear()'>Clear list</button>
 
 <br>
@@ -11,7 +11,7 @@
       <th scope="col">Name</th>
       <th scope="col">Type</th>
       <th scope="col">Weight (kg)</th>
-      <th scope="col">Height (cm)</th>
+      <th scope="col">Height (m)</th>
       <th scope="col">Image</th>
       <th></th>
 
@@ -21,7 +21,9 @@
     <tr class="list-group-item-action" *ngFor="let pokemon of pokemons; let i = index">
       <th scope="row">{{i+1}}</th>
       <td>{{pokemon.name}}</td>
-      <td>{{pokemon.type}}</td>
+      <td>
+        <span *ngFor="let type of pokemon.type" class= "detNo" [ngClass]="type">{{type}}</span>
+      </td>
       <td>{{pokemon.weight}}</td>
       <td>{{pokemon.height}}</td>
       <td style="padding: 0"><img
