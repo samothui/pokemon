@@ -4,6 +4,7 @@ import { PokemonsStorageService } from '../pokemons.service';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PokedexComponent } from '../pokedex/pokedex.component';
+import { TitleCasePipe } from '@angular/common';
 
 
 @Component({
@@ -15,7 +16,9 @@ export class PokemonListComponent implements OnInit {
 
   constructor(private pokeStorage: PokemonsStorageService,
               private router: Router,
-              private modalService: NgbModal) {  }
+              private modalService: NgbModal,
+              private titlecase: TitleCasePipe,
+              ) {  }
 
   ngOnInit(){
   }
@@ -28,7 +31,7 @@ export class PokemonListComponent implements OnInit {
       (Response:any) =>{
         let pokePokedex = {
           name:Response.name,
-          type:Response.types[0].type.name,
+          type:[],
           order:Response.order,
           weight:Response.weight / 10,
           height:Response.height / 10,
@@ -42,6 +45,8 @@ export class PokemonListComponent implements OnInit {
           ability: Response.abilities[0].ability.name,
           abilityDesc: ''
         }
+        Response.types.map(values =>
+          pokePokedex.type.push(this.titlecase.transform(values.type.name)));
         this.pokeStorage.callAbility(pokePokedex.ability)
         .subscribe(
           (Response:any) =>{

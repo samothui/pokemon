@@ -3,7 +3,6 @@ import { Pokemon, Pokedex } from './pokemon.interface';
 import { Subject } from 'rxjs';
 import {  HttpClient } from '@angular/common/http';
 import { TitleCasePipe, LowerCasePipe } from '@angular/common';
-import { map, tap } from 'rxjs/operators';
 
 
 
@@ -25,16 +24,22 @@ export class PokemonsStorageService {
 
   addRandomPokemon(numRepeats){
     for (let i = 0; i<= numRepeats; i++){
-      this.http.get('https://pokeapi.co/api/v2/pokemon/'+Math.floor(Math.random()*(151-1)+1)).subscribe(
+      this.http.get('https://pokeapi.co/api/v2/pokemon/'+Math.floor(Math.random()*(700-1)+1)).subscribe(
         (Response:any) =>{
+          console.log('name:'+ Response.name);
+
+
           let newPokemon = {
             name: this.titlecase.transform(Response.name),
-            type: this.titlecase.transform(Response.types[0].type.name),
+            type: [],
             weight: Response.weight / 10,
             height: Response.height / 10,
             img: Response.sprites.front_default
           }
-          this.addToList(newPokemon);
+          Response.types.map(values =>
+            newPokemon.type.push(this.titlecase.transform(values.type.name)));
+            newPokemon.type.join(', ');
+            this.addToList(newPokemon);
         }
       )
     }
