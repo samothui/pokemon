@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Pokemon, Pokedex } from './pokemon.interface';
-import { Subject } from 'rxjs';
 import {  HttpClient } from '@angular/common/http';
 import { TitleCasePipe, LowerCasePipe } from '@angular/common';
+
 
 
 
@@ -19,16 +19,13 @@ export class PokemonsStorageService {
   pokemons:Array<Pokemon> = []
   pokemonsToBeEdited: Pokemon;
   pokemonsPokedex= <Pokedex>{};
-  editPokemonEvent = new Subject<void>();
   editMode = false;
 
   addRandomPokemon(numRepeats){
     for (let i = 0; i<= numRepeats; i++){
       this.http.get('https://pokeapi.co/api/v2/pokemon/'+Math.floor(Math.random()*(700-1)+1)).subscribe(
         (Response:any) =>{
-          console.log('name:'+ Response.name);
-
-
+          // console.log('name:'+ Response.name);
           let newPokemon = {
             name: this.titlecase.transform(Response.name),
             type: [],
@@ -38,7 +35,6 @@ export class PokemonsStorageService {
           }
           Response.types.map(values =>
             newPokemon.type.push(this.titlecase.transform(values.type.name)));
-            newPokemon.type.join(', ');
             this.addToList(newPokemon);
         }
       )
@@ -56,7 +52,6 @@ export class PokemonsStorageService {
   addToEditList(pokemon) {
     this.pokemonsToBeEdited = pokemon;
     this.editMode = true;
-    // this.editPokemonEvent.next();
   }
 
   addToPokedex(pokemon) {
